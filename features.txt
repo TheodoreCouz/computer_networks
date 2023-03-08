@@ -1,0 +1,6 @@
+Fonctionnalités à tester:
+- envoi de messages
+- appels vidéos
+- appels audio
+- création de groupes
+- envoi de messages vocaux
