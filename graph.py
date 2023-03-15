@@ -3,6 +3,9 @@ import matplotlib.pyplot as plt
 import sys
 import csv
 
+NUMBER_OF_PACKETS_IGNORED = 0
+REG_PACKETS = 0
+
 # Graphs data arrays
 UDP_TCP_intervals = []
 Ports_data = {}
@@ -48,6 +51,7 @@ else:
         
         packet_FT = fromToFormat(packet)
         if packet_FT in from_to_background:
+            NUMBER_OF_PACKETS_IGNORED+=1
             continue
         
         time = packet.sniff_time.timestamp()
@@ -63,6 +67,7 @@ else:
         Ports_data[destination_port] += 1
 
         packets[protocol].append((time, packet))
+        REG_PACKETS += 1
 
     # Stacked UDP/TCP bar chart
     step = 0.1 # 100ms
@@ -103,6 +108,8 @@ else:
         UDP.append(len(g["UDP"]))
         TCP.append(len(g["TCP"]))
     
+    print(f"{NUMBER_OF_PACKETS_IGNORED} packets ignore due to noise ({NUMBER_OF_PACKETS_IGNORED/(NUMBER_OF_PACKETS_IGNORED + REG_PACKETS)}%)")
+
     plt.bar(x, TCP, color='r', label="TCP packets")
     plt.bar(x, UDP, bottom=TCP, color='b', label="UDP packets")
     plt.legend()
@@ -112,3 +119,5 @@ else:
     plt.bar(Ports_data.keys(), Ports_data.values(), color='g', label="Packet per port")
     plt.legend()
     plt.show()
+
+    

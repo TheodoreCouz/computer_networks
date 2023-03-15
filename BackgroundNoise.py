@@ -1,7 +1,7 @@
 import pyshark
 import matplotlib.pyplot as plt
 
-capture = pyshark.FileCapture('./traces/Ethernet/background_noise_skypeOpened.pcapng')
+capture = pyshark.FileCapture('./traces/Ethernet/background_noise.pcapng')
 
 lines = []
 
